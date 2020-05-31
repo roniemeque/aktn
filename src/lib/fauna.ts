@@ -1,5 +1,11 @@
 import faunadb, { query as q } from "faunadb";
 
+/**
+ * Importante: FaunaDB recomenda criar as conexoes dentro do contexto dos handlers
+ * Nao ha vantagem em usar hot containers para reaproveitar as conexoes neste caso
+ * ref: https://docs.fauna.com/fauna/current/drivers/aws
+ */
+
 const client = new faunadb.Client({
   secret: process.env.FAUNA_KEY,
 });
@@ -57,12 +63,12 @@ export const getItemById = async (
 
 export const createItem = async (
   collectionName: string,
-  item: any
+  data: any
 ): Promise<string | null> => {
   try {
     const { ref } = await client.query(
       q.Create(q.Collection(collectionName), {
-        data: { ...item },
+        data: { ...data },
       })
     );
 
@@ -84,6 +90,54 @@ export const deleteById = async (
 
     return {
       id: ref?.value?.id,
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const replaceById = async (
+  collectionName: string,
+  id: string,
+  newData: any
+): Promise<any> => {
+  try {
+    const { ref, data }: FaunaItem = await client.query(
+      q.Replace(q.Ref(q.Collection(collectionName), id), {
+        data: {
+          ...newData,
+        },
+      })
+    );
+
+    return {
+      id: ref?.value?.id,
+      ...data,
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const updateById = async (
+  collectionName: string,
+  id: string,
+  newData: any
+): Promise<any> => {
+  try {
+    const { ref, data }: FaunaItem = await client.query(
+      q.Update(q.Ref(q.Collection(collectionName), id), {
+        data: {
+          ...newData,
+        },
+      })
+    );
+
+    return {
+      id: ref?.value?.id,
+      ...data,
     };
   } catch (error) {
     console.error(error);

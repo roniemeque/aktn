@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { allItemsByIndex, getItemById, deleteById } from "../../../lib/fauna";
+import {
+  getItemById,
+  deleteById,
+  replaceById,
+  updateById,
+} from "../../../lib/fauna";
 
 type Data = {
   book?: Book;
@@ -8,7 +13,7 @@ type Data = {
 };
 
 export default async (
-  { method, query }: NextApiRequest,
+  { method, query, body }: NextApiRequest,
   res: NextApiResponse<Data>
 ) => {
   const { bookId } = query;
@@ -28,6 +33,22 @@ export default async (
       return res.status(500).json({ message: "Something went wrong" });
 
     return res.status(200).json({ deletedId });
+  }
+
+  if (method === "PUT") {
+    const book = await replaceById("books", bookId as string, body);
+
+    if (!book) return res.status(500).json({ message: "Something went wrong" });
+
+    return res.status(200).json({ book });
+  }
+
+  if (method === "PATCH") {
+    const book = await updateById("books", bookId as string, body);
+
+    if (!book) return res.status(500).json({ message: "Something went wrong" });
+
+    return res.status(200).json({ book });
   }
 
   res.status(405).json({ message: "Method not available" });
