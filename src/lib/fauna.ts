@@ -15,16 +15,41 @@ interface FaunaItem {
   };
 }
 
-export const allItemsByIndex = async (indexName: string): Promise<any[]> => {
-  const { data } = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index(indexName))),
-      q.Lambda("X", q.Get(q.Var("X")))
-    )
-  );
+export const allItemsByIndex = async (
+  indexName: string
+): Promise<any[] | null> => {
+  try {
+    const { data } = await client.query(
+      q.Map(
+        q.Paginate(q.Match(q.Index(indexName))),
+        q.Lambda("X", q.Get(q.Var("X")))
+      )
+    );
 
-  return data.map((item: FaunaItem) => ({
-    id: item.ref.value.id,
-    ...item.data,
-  }));
+    return data?.map((item: FaunaItem) => ({
+      id: item?.ref?.value?.id,
+      ...item?.data,
+    }));
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const createItem = async (
+  collectionName: string,
+  item: any
+): Promise<string | null> => {
+  try {
+    const { ref } = await client.query(
+      q.Create(q.Collection(collectionName), {
+        data: { ...item },
+      })
+    );
+
+    return ref?.value?.id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };

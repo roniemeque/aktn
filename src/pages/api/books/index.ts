@@ -1,19 +1,33 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { allItemsByIndex } from "../../../lib/fauna";
+import { allItemsByIndex, createItem } from "../../../lib/fauna";
 
 type Data = {
-  books: Book[];
+  books?: Book[];
+  createdId?: string;
+  message?: string;
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  switch (req.method) {
-    case "GET":
-      const books = await allItemsByIndex("all_books");
-      return res.status(200).json({ books });
+export default async (
+  { method, body }: NextApiRequest,
+  res: NextApiResponse<Data>
+) => {
+  if (method === "GET") {
+    const books = await allItemsByIndex("all_books");
 
-    default:
-      break;
+    if (!books)
+      return res.status(500).json({ message: "Something went wrong" });
+
+    return res.status(200).json({ books });
   }
 
-  res.status(200).json({ books: [] });
+  if (method === "POST") {
+    const createdId = await createItem("books", body);
+
+    if (!createdId)
+      return res.status(500).json({ message: "Something went wrong" });
+
+    return res.status(200).json({ createdId });
+  }
+
+  res.status(405).json({ message: "Method not available" });
 };
