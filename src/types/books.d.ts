@@ -1,6 +1,7 @@
 interface Book {
   id: string;
   title: string;
-  shortDesck: string;
+  shortDesc: string;
+  category: string;
   thumb: string;
 }
