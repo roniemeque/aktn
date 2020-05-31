@@ -36,6 +36,27 @@ export const allItemsByIndex = async (
   }
 };
 
+export const getItemById = async (
+  collectionName: string,
+  id: string
+): Promise<any> => {
+  try {
+    console.log(collectionName, id);
+
+    const { ref, data }: FaunaItem = await client.query(
+      q.Get(q.Ref(q.Collection(collectionName), id))
+    );
+
+    return {
+      id: ref?.value?.id,
+      ...data,
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const createItem = async (
   collectionName: string,
   item: any
