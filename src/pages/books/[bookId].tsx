@@ -1,18 +1,31 @@
 import { GetServerSideProps } from "next";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import AddBookRating from "../../components/books/AddBookRating";
 import BookInfo from "../../components/books/BookInfo";
-import { API_URL } from "../../settings";
-import BookRatings from "../../components/books/BookRatings";
+import BookRatingsList from "../../components/books/BookRatingsList";
+import { fetchBook } from "../../helpers/books";
+import { Title2 } from "../../styles/Titles";
 
 interface Props {
   book: Book;
 }
 
-const Home: FC<Props> = ({ book }) => {
+const Home: FC<Props> = ({ book: bookFromServer }) => {
+  const [book, setBook] = useState(bookFromServer);
+
+  const updateBook = async () => {
+    const updatedBook = await fetchBook(book.id);
+    if (updateBook) {
+      setBook(updatedBook);
+    }
+  };
+
   return (
     <>
       <BookInfo book={book}></BookInfo>
-      <BookRatings book={book}></BookRatings>
+      <Title2>Opiniões</Title2>
+      <AddBookRating refreshBookData={updateBook} book={book}></AddBookRating>
+      <BookRatingsList ratings={book.ratings}></BookRatingsList>
     </>
   );
 };
@@ -20,21 +33,12 @@ const Home: FC<Props> = ({ book }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { bookId } = context.params;
 
-  try {
-    const { book } = await (await fetch(`${API_URL}/books/${bookId}`)).json();
-    return {
-      props: {
-        book,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        book: null,
-      },
-    };
-  }
+  const book = await fetchBook(bookId as string);
+  return {
+    props: {
+      book,
+    },
+  };
 };
 
 export default Home;

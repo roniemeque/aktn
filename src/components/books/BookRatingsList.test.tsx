@@ -1,5 +1,5 @@
 import React from "react";
-import BookRatings from "./BookRatings";
+import BookRatingsList from "./BookRatingsList";
 import { render } from "@testing-library/react";
 import WrapWithContext from "../../testing/WrapWithContext";
 import { bookWithRatings } from "../../mocks/books";
@@ -7,7 +7,7 @@ import { bookWithRatings } from "../../mocks/books";
 const setup = (book: Book) =>
   render(
     <WrapWithContext>
-      <BookRatings book={book}></BookRatings>
+      <BookRatingsList ratings={book.ratings}></BookRatingsList>
     </WrapWithContext>
   );
 

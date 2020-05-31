@@ -4,12 +4,17 @@ import { ThemeProvider } from "emotion-theming";
 import { globalStyles } from "../styles/global";
 import { Global } from "@emotion/core";
 import styled from "../styles/styled";
+import Link from "next/link";
 
 const CustomApp = ({ Component, pageProps }: AppProps) => (
   <ThemeProvider theme={theme}>
     <Global styles={globalStyles}></Global>
     <App>
-      <nav>nav</nav>
+      <Nav>
+        <Link href="/">
+          <a title="Home">home</a>
+        </Link>
+      </Nav>
       <Main>
         <Component {...pageProps} />
       </Main>
@@ -21,6 +26,10 @@ const App = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
+`;
+
+const Nav = styled.nav`
+  padding: 1rem;
 `;
 
 const Main = styled.main`

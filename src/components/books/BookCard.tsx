@@ -12,7 +12,7 @@ const BookCard: FunctionComponent<Props> = ({ book }) => {
     <Link href="/books/[bookId]" as={`/books/${book.id}`}>
       <Card title={book.title}>
         <div className="top">
-          <img src="" alt={book.title} />
+          <img src={book.thumb} alt={book.title} />
         </div>
         <div className="body">
           <span className="category">{book.category}</span>
@@ -29,6 +29,7 @@ const Card = styled.a`
   max-width: 12rem;
   width: 100%;
   cursor: pointer;
+  color: inherit;
   .top {
     position: relative;
     height: 8rem;

@@ -10,7 +10,7 @@ const BookInfo: FC<Props> = ({ book }) => {
   return (
     <BookInfoStyled>
       <div className="image">
-        <img src="" alt={book.title} />
+        <img src={book.thumb} alt={book.title} />
       </div>
       <span>{book.category}</span>
       <Title1>{book.title}</Title1>
