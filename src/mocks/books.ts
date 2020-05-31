@@ -37,3 +37,17 @@ export const books = [
 ];
 
 export const book = books[0];
+
+export const bookWithRatings = {
+  ...book[0],
+  ratings: [
+    {
+      name: "Ronie",
+      text: "Very cool book",
+    },
+    {
+      name: "Eduardo",
+      text: "Wow nice cool",
+    },
+  ],
+};

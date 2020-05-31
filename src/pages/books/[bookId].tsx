@@ -1,9 +1,8 @@
 import { GetServerSideProps } from "next";
 import React, { FC } from "react";
-import { API_URL } from "../../settings";
-import { Title1 } from "../../styles/Titles";
 import BookInfo from "../../components/books/BookInfo";
-import { books } from "../../mocks/books";
+import { API_URL } from "../../settings";
+import BookRatings from "../../components/books/BookRatings";
 
 interface Props {
   book: Book;
@@ -13,6 +12,7 @@ const Home: FC<Props> = ({ book }) => {
   return (
     <>
       <BookInfo book={book}></BookInfo>
+      <BookRatings book={book}></BookRatings>
     </>
   );
 };

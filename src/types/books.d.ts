@@ -1,9 +1,15 @@
+interface Rating {
+  name: string;
+  text: string;
+}
+
 interface Book {
   id: string;
   title: string;
-  shortDesc: string;
   category: string;
-  thumb: string;
+  thumb?: string;
+  shortDesc?: string;
+  ratings?: Rating[];
 }
 
 interface CategoryWithBooks {
