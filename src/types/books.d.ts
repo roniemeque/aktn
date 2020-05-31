@@ -5,3 +5,8 @@ interface Book {
   category: string;
   thumb: string;
 }
+
+interface CategoryWithBooks {
+  title: string;
+  books: Book[];
+}

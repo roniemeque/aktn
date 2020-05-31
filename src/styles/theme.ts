@@ -17,6 +17,7 @@ const defaultTheme = {
     bluesh: "0 1px 3px rgba(136, 136, 255, 0.34)",
     normal: "0 4px 7px #ababab",
   },
+  gutter: "1rem",
 };
 
 export const theme = defaultTheme;

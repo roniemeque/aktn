@@ -21,12 +21,29 @@ const App = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
-  padding: 1rem;
 `;
 
 const Main = styled.main`
+  width: calc(900px + 2 * ${({ theme }) => theme.gutter});
+  max-width: 100vw;
+  margin: 1rem auto 0;
   display: grid;
-  gap: 1rem;
+  row-gap: 1rem;
+  align-content: start;
+  grid-template-columns: ${({ theme }) => theme.gutter} 1fr ${({ theme }) =>
+      theme.gutter};
+  & > * {
+    grid-column: 2 / -2;
+  }
+  & > .full {
+    grid-column: span 3;
+  }
+  .gap-in-full {
+    grid-column: 1 / -1;
+  }
+  .fixed-padding {
+    padding: 0 1rem;
+  }
 `;
 
 export default CustomApp;
