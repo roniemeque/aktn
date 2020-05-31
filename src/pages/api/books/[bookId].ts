@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { allItemsByIndex, getItemById } from "../../../lib/fauna";
+import { allItemsByIndex, getItemById, deleteById } from "../../../lib/fauna";
 
 type Data = {
   book?: Book;
   message?: string;
+  deletedId?: string;
 };
 
 export default async (
@@ -18,6 +19,15 @@ export default async (
     if (!book) return res.status(500).json({ message: "Something went wrong" });
 
     return res.status(200).json({ book });
+  }
+
+  if (method === "DELETE") {
+    const deletedId = await deleteById("books", bookId as string);
+
+    if (!deletedId)
+      return res.status(500).json({ message: "Something went wrong" });
+
+    return res.status(200).json({ deletedId });
   }
 
   res.status(405).json({ message: "Method not available" });

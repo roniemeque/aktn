@@ -41,8 +41,6 @@ export const getItemById = async (
   id: string
 ): Promise<any> => {
   try {
-    console.log(collectionName, id);
-
     const { ref, data }: FaunaItem = await client.query(
       q.Get(q.Ref(q.Collection(collectionName), id))
     );
@@ -69,6 +67,24 @@ export const createItem = async (
     );
 
     return ref?.value?.id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const deleteById = async (
+  collectionName: string,
+  id: string
+): Promise<any> => {
+  try {
+    const { ref }: FaunaItem = await client.query(
+      q.Delete(q.Ref(q.Collection(collectionName), id))
+    );
+
+    return {
+      id: ref?.value?.id,
+    };
   } catch (error) {
     console.error(error);
     return null;
