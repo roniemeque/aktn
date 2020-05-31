@@ -2,17 +2,17 @@ import { GetServerSideProps } from "next";
 import React, { FC } from "react";
 import { API_URL } from "../../settings";
 import { Title1 } from "../../styles/Titles";
+import BookInfo from "../../components/books/BookInfo";
+import { books } from "../../mocks/books";
 
 interface Props {
   book: Book;
 }
 
 const Home: FC<Props> = ({ book }) => {
-  console.log(book);
-
   return (
     <>
-      <Title1>book</Title1>
+      <BookInfo book={book}></BookInfo>
     </>
   );
 };
