@@ -88,9 +88,7 @@ export const deleteById = async (
       q.Delete(q.Ref(q.Collection(collectionName), id))
     );
 
-    return {
-      id: ref?.value?.id,
-    };
+    return ref?.value?.id;
   } catch (error) {
     console.error(error);
     return null;
