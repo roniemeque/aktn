@@ -92,7 +92,6 @@ const ManageBooksForm: FC<Props> = ({ book }) => {
           id="thumb-upload"
           name="thumb-upload"
           placeholder="Upload an image"
-          required
           onChange={onImageUpload}
         />
         {uploadingImage && <span>enviando...</span>}

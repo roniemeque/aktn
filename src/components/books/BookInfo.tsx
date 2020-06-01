@@ -14,6 +14,7 @@ const BookInfo: FC<Props> = ({ book }) => {
       </div>
       <span>{book.category}</span>
       <Title1>{book.title}</Title1>
+      <p>{book.shortDesc}</p>
     </BookInfoStyled>
   );
 };
@@ -23,9 +24,18 @@ const BookInfoStyled = styled.div`
   grid-template-columns: 5rem 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    "thumb title"
-    "thumb category";
+    "thumb ."
+    "title title"
+    "category ."
+    "desc desc";
   column-gap: 1rem;
+  row-gap: 0.4rem;
+  @media (min-width: 900px) {
+    grid-template-areas:
+      "thumb title"
+      "thumb category"
+      "desc desc";
+  }
   .image {
     grid-area: thumb;
     height: 5rem;
@@ -49,6 +59,9 @@ const BookInfoStyled = styled.div`
   }
   h1 {
     grid-area: title;
+  }
+  p {
+    grid-area: desc;
   }
 `;
 

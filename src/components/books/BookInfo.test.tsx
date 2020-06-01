@@ -16,5 +16,6 @@ test("should render book info", () => {
 
   expect(getByText(book.title)).toBeTruthy();
   expect(getByText(book.category)).toBeTruthy();
+  expect(getByText(book.shortDesc)).toBeTruthy();
   expect(getByAltText(book.title)).toBeTruthy();
 });
