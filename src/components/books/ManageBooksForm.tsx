@@ -121,6 +121,10 @@ const SendButton = styled(Button)`
   justify-self: flex-start;
 `;
 
+const RemoveButton = styled(SendButton)`
+  background: ${({ theme }) => theme.colors.purple};
+`;
+
 const ThumbPicker = styled.div`
   display: grid;
   img {

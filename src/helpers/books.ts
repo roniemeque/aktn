@@ -53,3 +53,20 @@ export const mutateBook = async (
     return null;
   }
 };
+
+export const deleteBook = async (bookId: string): Promise<string | null> => {
+  try {
+    const res = await fetch(`${API_URL}/books/${bookId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { deletedId } = await res.json();
+
+    return deletedId;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

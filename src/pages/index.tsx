@@ -7,7 +7,7 @@ import { sortBooksIntoCategories } from "../helpers/books";
 import useEditingMode from "../hooks/useEditingMode";
 import { API_URL } from "../settings";
 import styled from "../styles/styled";
-import { Title1 } from "../styles/Titles";
+import { Title1, WithActionWrapper } from "../styles/Titles";
 
 interface Props {
   books: Book[];
@@ -27,7 +27,7 @@ const Home: FC<Props> = ({ books }) => {
         name="editing-mode"
       ></ToggleInput>
 
-      <TitleWrapper>
+      <WithActionWrapper content="+">
         <Title1>Livros</Title1>
         {editingMode && (
           <Link href="/books/add">
@@ -36,7 +36,7 @@ const Home: FC<Props> = ({ books }) => {
             </a>
           </Link>
         )}
-      </TitleWrapper>
+      </WithActionWrapper>
       {booksByCategory.map((categoryGroup) => (
         <CategoryWithBooks
           key={categoryGroup.title}
@@ -46,38 +46,6 @@ const Home: FC<Props> = ({ books }) => {
     </>
   );
 };
-
-const TitleWrapper = styled.div`
-  display: flex;
-  h1 {
-    line-height: 1;
-  }
-  align-items: flex-end;
-  a {
-    font-size: 1.4rem;
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-    span {
-      margin-right: 0.1rem;
-      display: inline-block;
-      position: relative;
-      width: 1.4rem;
-      height: 1.4rem;
-      color: white;
-      background: ${({ theme }) => theme.colors.blue};
-      border-radius: 50%;
-      &::before {
-        line-height: 1;
-        content: "+";
-        position: absolute;
-        left: 50%;
-        top: 44%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
-`;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
