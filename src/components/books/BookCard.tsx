@@ -47,6 +47,7 @@ const Card = styled.a`
     height: 8rem;
     background: ${({ theme }) => theme.colors.greyEvenDarker};
     border-radius: ${({ theme }) => theme.border.small};
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;

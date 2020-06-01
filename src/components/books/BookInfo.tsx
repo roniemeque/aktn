@@ -33,6 +33,7 @@ const BookInfoStyled = styled.div`
     position: relative;
     background: ${({ theme }) => theme.colors.greyEvenDarker};
     border-radius: 50%;
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;

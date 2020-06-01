@@ -39,7 +39,6 @@ test("should have empty inputs when adding", () => {
     title: "",
     shortDesc: "",
     category: "",
-    thumb: "",
   });
 });
 
@@ -49,6 +48,5 @@ test("should have filled inputs when editing", () => {
     title: book.title,
     shortDesc: book.shortDesc,
     category: book.category,
-    thumb: book.thumb,
   });
 });
