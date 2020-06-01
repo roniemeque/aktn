@@ -18,5 +18,5 @@ test("should render category title and category inside cards", () => {
   const [category] = categories;
   const { getAllByText } = setup(category);
 
-  expect(getAllByText(category.title).length).toBeGreaterThan(1);
+  expect(getAllByText(/fantasy/i).length).toBeGreaterThan(1);
 });

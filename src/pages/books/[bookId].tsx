@@ -10,7 +10,7 @@ interface Props {
   book: Book;
 }
 
-const Home: FC<Props> = ({ book: bookFromServer }) => {
+const BookPage: FC<Props> = ({ book: bookFromServer }) => {
   const [book, setBook] = useState(bookFromServer);
 
   const updateBook = async () => {
@@ -41,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default Home;
+export default BookPage;

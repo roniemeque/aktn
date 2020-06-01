@@ -2,7 +2,8 @@ import { API_URL } from "../settings";
 
 export const sortBooksIntoCategories = (books: Book[]): CategoryWithBooks[] => {
   const map = books.reduce((acum, book) => {
-    acum[book.category] = [...(acum[book.category] ?? []), book];
+    const category = book.category.toLowerCase();
+    acum[category] = [...(acum[category] ?? []), book];
     return acum;
   }, []);
 
@@ -30,20 +31,23 @@ export const fetchBook = async (bookId: string): Promise<Book | null> => {
 };
 
 export const mutateBook = async (
-  bookId: string,
+  method: string,
   data: any,
-  method = "PATCH"
+  bookId?: string
 ): Promise<Book | null> => {
+  const url = bookId ? `${API_URL}/books/${bookId}` : `${API_URL}/books`;
+
   try {
-    const res = await fetch(`${API_URL}/books/${bookId}`, {
+    const res = await fetch(url, {
       method,
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const { book } = await res.json();
-    return book;
+    const { book, createdId } = await res.json();
+
+    return book || createdId;
   } catch (error) {
     console.error(error);
     return null;

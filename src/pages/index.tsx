@@ -30,7 +30,7 @@ const Home: FC<Props> = ({ books }) => {
       <TitleWrapper>
         <Title1>Livros</Title1>
         {editingMode && (
-          <Link href="/manage-books">
+          <Link href="/books/add">
             <a title="Adicionar livro">
               <span></span> Adicionar
             </a>

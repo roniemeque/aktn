@@ -28,7 +28,7 @@ const AddBookRating: FC<Props> = ({ book, refreshBookData }) => {
       },
     ];
     try {
-      await mutateBook(book.id, { ratings: ratingsUpdated });
+      await mutateBook("PATCH", { ratings: ratingsUpdated }, book.id);
       refreshBookData();
     } catch (error) {
       console.error(error);
