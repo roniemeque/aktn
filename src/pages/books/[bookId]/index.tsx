@@ -1,10 +1,10 @@
 import { GetServerSideProps } from "next";
 import React, { FC, useState } from "react";
-import AddBookRating from "../../components/books/AddBookRating";
-import BookInfo from "../../components/books/BookInfo";
-import BookRatingsList from "../../components/books/BookRatingsList";
-import { fetchBook } from "../../helpers/books";
-import { Title2 } from "../../styles/Titles";
+import AddBookRating from "../../../components/books/AddBookRating";
+import BookInfo from "../../../components/books/BookInfo";
+import BookRatingsList from "../../../components/books/BookRatingsList";
+import { fetchBook } from "../../../helpers/books";
+import { Title2 } from "../../../styles/Titles";
 
 interface Props {
   book: Book;

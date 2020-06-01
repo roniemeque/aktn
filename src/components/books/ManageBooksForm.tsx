@@ -24,12 +24,16 @@ const ManageBooksForm: FC<Props> = ({ book }) => {
     e.preventDefault();
     setSending(true);
 
-    await mutateBook("POST", {
-      title,
-      shortDesc,
-      thumb,
-      category,
-    });
+    await mutateBook(
+      book ? "PUT" : "POST",
+      {
+        title,
+        shortDesc,
+        thumb,
+        category,
+      },
+      book?.id
+    );
 
     setSending(false);
     router.push("/");

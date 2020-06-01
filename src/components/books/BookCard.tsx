@@ -14,7 +14,7 @@ const BookCard: FunctionComponent<Props> = ({ book }) => {
   return (
     <>
       {editingMode && (
-        <Link href={`/manage-books?id=${book.id}`}>
+        <Link href={`/books/${book.id}/edit`}>
           <a style={{ display: "block" }} title={`Editar livro`}>
             editar
           </a>
