@@ -5,21 +5,24 @@ import { globalStyles } from "../styles/global";
 import { Global } from "@emotion/core";
 import styled from "../styles/styled";
 import Link from "next/link";
+import EditingContextProvider from "../EditingContextProvider";
 
 const CustomApp = ({ Component, pageProps }: AppProps) => (
-  <ThemeProvider theme={theme}>
-    <Global styles={globalStyles}></Global>
-    <App>
-      <Nav>
-        <Link href="/">
-          <a title="Home">home</a>
-        </Link>
-      </Nav>
-      <Main>
-        <Component {...pageProps} />
-      </Main>
-    </App>
-  </ThemeProvider>
+  <EditingContextProvider>
+    <ThemeProvider theme={theme}>
+      <Global styles={globalStyles}></Global>
+      <App>
+        <Nav>
+          <Link href="/">
+            <a title="Home">home</a>
+          </Link>
+        </Nav>
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+      </App>
+    </ThemeProvider>
+  </EditingContextProvider>
 );
 
 const App = styled.div`
@@ -30,6 +33,9 @@ const App = styled.div`
 
 const Nav = styled.nav`
   padding: 1rem;
+  a {
+    color: ${({ theme }) => theme.colors.black};
+  }
 `;
 
 const Main = styled.main`
